@@ -1,12 +1,16 @@
 {
-  "name": "CozyCafé",
+  "name": "cozy-cafe-bot",
   "version": "2.0.0",
-  "description": "☕ Cozy Café Discord Bot Powered by rehuux",
+  "description": "☕ Cozy Café Discord Bot with Supabase",
+  "type": "commonjs",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "deploy": "node deploy-commands.js",
     "dev": "nodemon src/index.js"
+  },
+  "engines": {
+    "node": "22.x"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
@@ -16,5 +20,22 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rehuux/CozyCafe.git"
+  },
+  "keywords": [
+    "discord-bot",
+    "economy-bot",
+    "supabase",
+    "cafe-bot",
+    "discord-js"
+  ],
+  "author": "Syed Rehan (@rehuux)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rehuux/CozyCafe/issues"
+  },
+  "homepage": "https://github.com/rehuux/CozyCafe#readme"
 }
