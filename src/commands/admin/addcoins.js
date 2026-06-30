@@ -5,22 +5,22 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('addcoins')
         .setDescription('💰 Add coins to a user (Admin only)')
-        .addUserOption(option =>
-            option.setName('user')
+        .addUserOption(function(option) {
+            return option.setName('user')
                 .setDescription('User to add coins to')
-                .setRequired(true)
-        )
-        .addIntegerOption(option =>
-            option.setName('amount')
+                .setRequired(true);
+        })
+        .addIntegerOption(function(option) {
+            return option.setName('amount')
                 .setDescription('Number of coins to add')
                 .setRequired(true)
-                .setMinValue(1)
-        )
-        .addStringOption(option =>
-            option.setName('reason')
+                .setMinValue(1);
+        })
+        .addStringOption(function(option) {
+            return option.setName('reason')
                 .setDescription('Reason (optional)')
-                .setRequired(false)
-        )
+                .setRequired(false);
+        })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction) {
@@ -47,18 +47,20 @@ module.exports = {
             await logAdminAction(interaction.user.id, targetUser.id, 'addcoins', amount, reason, interaction.guildId);
 
             try {
-                await targetUser.send(`💰 You received **${amount}** coins! Reason: ${reason}`);
-            } catch (dmError) {}
+                await targetUser.send('💰 You received **' + amount + '** coins! Reason: ' + reason);
+            } catch (dmError) {
+                // User has DMs disabled
+            }
 
             const embed = new EmbedBuilder()
                 .setColor(0x00ff00)
                 .setTitle('💰 Coins Added')
-                .setDescription(`✅ Added **${amount}** coins to ${targetUser}`)
+                .setDescription('✅ Added **' + amount + '** coins to ' + targetUser)
                 .addFields(
-                    { name: 'New Balance', value: `${newCoins} coins`, inline: true },
+                    { name: 'New Balance', value: newCoins + ' coins', inline: true },
                     { name: 'Reason', value: reason, inline: false }
                 )
-                .setFooter({ text: `Admin: ${interaction.user.username}` })
+                .setFooter({ text: 'Admin: ' + interaction.user.username })
                 .setTimestamp();
 
             await interaction.reply({ embeds: [embed] });
